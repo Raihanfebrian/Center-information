@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raihan Struggle | Digital Marketer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&family=Fredoka:wght@500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'display': ['Fredoka', 'sans-serif'],
+                        'body': ['Nunito', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        :root {
+            --bg-primary: #FFFFFF;
+            --bg-secondary: #F8FAF8;
+            --bg-card: #FFFFFF;
+            --text-primary: #0F172A;
+            --text-secondary: #475569;
+            --text-muted: #94A3B8;
+            --accent-primary: #10B981;
+            --accent-hover: #059669;
+            --accent-soft: #D1FAE5;
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #022c22;
+            --bg-secondary: #064E3B;
+            --bg-card: #065F46;
+            --text-primary: #ECFDF5;
+            --text-secondary: #A7F3D0;
+            --text-muted: #6EE7B7;
+            --accent-primary: #10B981;
+            --accent-hover: #34D399;
+            --accent-soft: #064E3B;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            overflow-x: hidden !important;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            transition: background 0.4s ease, color 0.4s ease;
+        }
+
+        .main-container {
+            width: 100vw;
+            max-width: 100vw;
+            overflow-x: hidden;
+        }
+
+        /* Fun Header with Background */
+        .header-section {
+            position: relative;
+            min-height: 240px;
+            background-image: url('https://tse1.mm.bing.net/th/id/OIP.XotbLmXOv2rZxf4_DPjq9gHaEK?rs=1&pid=ImgDetMain&o=7&rm=3');
+            background-size: cover;
+            background-position: center;
+            overflow: visible;
+        }
+
+        .header-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                180deg,
+                rgba(16, 185, 129, 0.9) 0%,
+                rgba(5, 150, 105, 0.92) 50%,
+                transparent 100%
+            );
+            transition: background 0.4s ease;
+        }
+
+        [data-theme="dark"] .header-overlay {
+            background: linear-gradient(
+                180deg,
+                rgba(5, 150, 105, 0.95) 0%,
+                rgba(4, 120, 87, 0.95) 50%,
+                transparent 100%
+            );
+        }
+
+        /* Fun Floating Shapes */
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.2;
+            pointer-events: none;
+        }
+
+        .shape-1 {
+            width: 70px;
+            height: 70px;
+            background: #FEF08A;
+            top: 25px;
+            left: 8%;
+            animation: float-bounce 4s ease-in-out infinite;
+        }
+
+        .shape-2 {
+            width: 45px;
+            height: 45px;
+            background: #A7F3D0;
+            top: 70px;
+            right: 12%;
+            animation: float-bounce 3.5s ease-in-out infinite 0.5s;
+        }
+
+        .shape-3 {
+            width: 30px;
+            height: 30px;
+            background: #FED7AA;
+            top: 110px;
+            left: 18%;
+            animation: float-bounce 5s ease-in-out infinite 1s;
+        }
+
+        .shape-4 {
+            width: 22px;
+            height: 22px;
+            background: #BAE6FD;
+            top: 45px;
+            right: 22%;
+            animation: float-bounce 4.5s ease-in-out infinite 0.3s;
+        }
+
+        @keyframes float-bounce {
+            0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
+            50% { transform: translateY(-12px) rotate(8deg) scale(1.05); }
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            z-index: 20;
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            color: white;
+        }
+
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.4);
+            transform: scale(1.1) rotate(15deg);
+        }
+
+        .theme-toggle svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .theme-toggle .sun-icon {
+            display: none;
+        }
+
+        [data-theme="dark"] .theme-toggle .moon-icon {
+            display: none;
+        }
+
+        [data-theme="dark"] .theme-toggle .sun-icon {
+            display: block;
+        }
+
+        /* Profile Photo Container - STATIC BORDER */
+        .profile-container {
+            position: absolute;
+            bottom: -70px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+        }
+
+        .profile-photo-wrapper {
+            position: relative;
+            padding: 5px;
+            background: linear-gradient(135deg, #10B981, #34D399);
+            border-radius: 28px;
+        }
+
+        .profile-photo {
+            width: 130px;
+            height: 130px;
+            border-radius: 24px;
+            object-fit: cover;
+            object-position: center top;
+            border: 4px solid white;
+            box-shadow: 0 15px 40px -10px rgba(16, 185, 129, 0.3);
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            background: white;
+        }
+
+        .profile-photo:hover {
+            transform: scale(1.05) rotate(-2deg);
+        }
+
+        /* Content Area */
+        .content-area {
+            padding-top: 90px;
+            padding-bottom: 40px;
+            position: relative;
+        }
+
+        /* Fun Background Pattern */
+        .bg-pattern {
+            position: fixed;
+            inset: 0;
+            background-image: 
+                radial-gradient(circle at 15% 25%, rgba(209, 250, 229, 0.5) 0%, transparent 35%),
+                radial-gradient(circle at 85% 75%, rgba(209, 250, 229, 0.4) 0%, transparent 35%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        [data-theme="dark"] .bg-pattern {
+            background-image: 
+                radial-gradient(circle at 15% 25%, rgba(6, 78, 59, 0.5) 0%, transparent 35%),
+                radial-gradient(circle at 85% 75%, rgba(6, 78, 59, 0.4) 0%, transparent 35%);
+        }
+
+        /* Pill Buttons - Emerald Money Palette */
+        .link-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            width: 100%;
+            padding: 18px 28px;
+            border-radius: 50px;
+            background: var(--bg-card);
+            border: 2px solid #D1FAE5;
+            font-weight: 700;
+            font-size: 15px;
+            color: var(--text-primary) !important;
+            text-decoration: none !important;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px -5px rgba(16, 185, 129, 0.2);
+        }
+
+        .link-btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(209, 250, 229, 0.5) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .link-btn:hover::before {
+            opacity: 1;
+        }
+
+        .link-btn:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 12px 30px -8px rgba(16, 185, 129, 0.25);
+            border-color: #10B981;
+            background: var(--bg-card);
+        }
+
+        .link-btn:active {
+            transform: translateY(-2px) scale(1.01);
+        }
+
+        .link-btn span {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Icon color in buttons */
+        .link-btn svg {
+            color: #10B981;
+            flex-shrink: 0;
+        }
+
+        [data-theme="dark"] .link-btn svg {
+            color: #34D399;
+        }
+
+        /* Primary Button - Emerald CTA */
+        .btn-primary {
+            background: #10B981;
+            border: none;
+            color: #FFFFFF !important;
+            font-weight: 800;
+            box-shadow: 0 6px 25px -5px rgba(16, 185, 129, 0.4);
+        }
+
+        .btn-primary::before {
+            background: #059669;
+            opacity: 0;
+        }
+
+        .btn-primary:hover::before {
+            opacity: 1;
+        }
+
+        .btn-primary:hover {
+            background: #059669;
+            box-shadow: 
+                0 0 25px rgba(16, 185, 129, 0.35),
+                0 15px 40px -5px rgba(5, 150, 105, 0.4);
+            transform: translateY(-5px) scale(1.03);
+        }
+
+        .btn-primary svg {
+            color: #FFFFFF;
+        }
+
+        /* Secondary Button - Tools */
+        .btn-secondary {
+            background: linear-gradient(135deg, #D1FAE5 0%, #ECFDF5 100%);
+            border: 2px solid #10B981;
+            color: #065F46 !important;
+            font-weight: 800;
+        }
+
+        .btn-secondary:hover {
+            background: linear-gradient(135deg, #A7F3D0 0%, #D1FAE5 100%);
+            border-color: #059669;
+        }
+
+        [data-theme="dark"] .btn-secondary {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(52, 211, 153, 0.1) 100%);
+            color: #A7F3D0 !important;
+        }
+
+        [data-theme="dark"] .btn-secondary:hover {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.3) 0%, rgba(52, 211, 153, 0.2) 100%);
+        }
+
+        /* Glow Animation */
+        .glow-effect {
+            animation: glow-fun 2.5s ease-in-out infinite;
+        }
+
+        @keyframes glow-fun {
+            0%, 100% { 
+                box-shadow: 
+                    0 0 15px rgba(16, 185, 129, 0.25),
+                    0 6px 25px -5px rgba(16, 185, 129, 0.4);
+            }
+            50% { 
+                box-shadow: 
+                    0 0 30px rgba(16, 185, 129, 0.4),
+                    0 6px 30px -5px rgba(5, 150, 105, 0.45);
+            }
+        }
+
+        /* Coming Soon Button */
+        .btn-disabled {
+            background: #D1FAE5;
+            border: 2px dashed #10B981;
+            color: #059669 !important;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        .btn-disabled:hover {
+            transform: none;
+            box-shadow: none;
+            border-color: #10B981;
+        }
+
+        [data-theme="dark"] .btn-disabled {
+            background: rgba(16, 185, 129, 0.15);
+            color: #6EE7B7 !important;
+        }
+
+        /* Badge */
+        .badge {
+            font-size: 10px;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-soon {
+            background: #FEF3C7;
+            color: #92400E;
+        }
+
+        .badge-help {
+            background: #D1FAE5;
+            color: #065F46;
+        }
+
+        .badge-collab {
+            background: #ECFDF5;
+            color: #047857;
+            border: 1px solid #10B981;
+        }
+
+        .badge-new {
+            background: linear-gradient(135deg, #10B981, #059669);
+            color: #FFFFFF;
+        }
+
+        [data-theme="dark"] .badge-help {
+            background: rgba(16, 185, 129, 0.25);
+            color: #A7F3D0;
+        }
+
+        [data-theme="dark"] .badge-collab {
+            background: rgba(16, 185, 129, 0.2);
+            color: #A7F3D0;
+            border-color: #34D399;
+        }
+
+        [data-theme="dark"] .badge-soon {
+            background: rgba(251, 191, 36, 0.2);
+            color: #FDE047;
+        }
+
+        /* Social Icons */
+        .social-icon {
+            width: 56px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 18px;
+            background: var(--bg-card);
+            border: 2px solid #D1FAE5;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            color: #10B981;
+            box-shadow: 0 4px 15px -5px rgba(16, 185, 129, 0.2);
+        }
+
+        .social-icon:hover {
+            background: #10B981;
+            color: white;
+            transform: translateY(-5px) rotate(-8deg) scale(1.1);
+            box-shadow: 0 15px 35px -8px rgba(16, 185, 129, 0.35);
+            border-color: #10B981;
+        }
+
+        /* Dark mode social icons */
+        [data-theme="dark"] .social-icon {
+            color: #34D399;
+            border-color: rgba(16, 185, 129, 0.3);
+        }
+
+        [data-theme="dark"] .social-icon:hover {
+            background: #10B981;
+            color: white;
+            border-color: #10B981;
+        }
+
+        /* Description Card */
+        .desc-card {
+            margin-top: 10px;
+            padding: 14px 18px;
+            background: #D1FAE5;
+            border-radius: 16px;
+        }
+
+        .desc-text {
+            font-size: 12px;
+            color: #065F46;
+            text-align: center;
+            line-height: 1.7;
+            font-weight: 500;
+        }
+
+        [data-theme="dark"] .desc-card {
+            background: rgba(6, 78, 59, 0.5);
+        }
+
+        [data-theme="dark"] .desc-text {
+            color: #A7F3D0;
+        }
+
+        /* Admin Section */
+        .admin-grid {
+            display: grid;
+            gap: 14px;
+        }
+
+        /* Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Stagger delays */
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+        .delay-4 { transition-delay: 0.4s; }
+        .delay-5 { transition-delay: 0.5s; }
+        .delay-6 { transition-delay: 0.6s; }
+
+        /* Fun Emoji Bounce */
+        .emoji-bounce {
+            display: inline-block;
+            animation: emoji-bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes emoji-bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        /* Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #D1FAE5;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #10B981;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #059669;
+        }
+
+        [data-theme="dark"]::-webkit-scrollbar-track {
+            background: #064E3B;
+        }
+
+        /* Focus States */
+        *:focus-visible {
+            outline: 3px solid #10B981;
+            outline-offset: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <!-- Background Pattern -->
+        <div class="bg-pattern"></div>
+
+        <!-- Header Section with Background -->
+        <header class="header-section">
+            <div class="header-overlay"></div>
+            
+            <!-- Fun Floating Shapes -->
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+            <div class="shape shape-4"></div>
+            
+            <!-- Theme Toggle -->
+            <button 
+                class="theme-toggle" 
+                id="themeToggle"
+                aria-label="Toggle dark mode"
+            >
+                <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                </svg>
+                <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="5"/>
+                    <line x1="12" y1="1" x2="12" y2="3"/>
+                    <line x1="12" y1="21" x2="12" y2="23"/>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                    <line x1="1" y1="12" x2="3" y2="12"/>
+                    <line x1="21" y1="12" x2="23" y2="12"/>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                </svg>
+            </button>
+
+            <!-- Profile Photo - STATIC BORDER -->
+            <div class="profile-container">
+                <div class="profile-photo-wrapper">
+                    <img 
+                        src="https://cdn.scalev.id/uploads/1774016441/Y8CKfZxX2wpcO4fH3_3l1A/1774016442394-Gemini_Generated_Image_devq8ddevq8ddevq.webp" 
+                        alt="Raihan Struggle" 
+                        class="profile-photo"
+                        loading="eager"
+                    >
+                </div>
+            </div>
+        </header>
+
+        <!-- Content Area -->
+        <main class="content-area relative z-10 px-5 max-w-lg mx-auto">
+            
+            <!-- Profile Info -->
+            <section class="text-center mb-6 reveal">
+                <h1 class="font-display text-3xl font-bold mb-2" style="color: var(--text-primary);">
+                    Raihan Struggle
+                </h1>
+                <p class="font-bold text-sm tracking-wide mb-4" style="color: #10B981;">
+                    Digital Marketer
+                </p>
+                <p class="text-sm max-w-xs mx-auto font-semibold leading-relaxed" style="color: var(--text-secondary);">
+                    <span class="emoji-bounce">💼</span> Bantu Anak Muda Bangun Karir & Produktivitas<br>
+                    <span class="emoji-bounce" style="animation-delay: 0.3s;">🚀</span> Tanpa Burnout!
+                </p>
+            </section>
+
+            <!-- Social Media Bar -->
+            <div class="flex justify-center gap-4 mb-8 reveal delay-1">
+                <a 
+                    href="https://instagram.com/raihanstruggle" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    class="social-icon"
+                    aria-label="Instagram @raihanstruggle"
+                >
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                    </svg>
+                </a>
+                <a 
+                    href="https://wa.me/6285117075654" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    class="social-icon"
+                    aria-label="WhatsApp Personal"
+                >
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                    </svg>
+                </a>
+            </div>
+
+            <!-- Main Links -->
+            <nav class="space-y-4 mb-6">
+                <!-- Primary CTA: Page Engine Pro -->
+                <a 
+                    href="https://order-page-engine.raihanstruggle.id/" 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="link-btn btn-primary glow-effect reveal delay-2"
+                >
+                    <span class="flex items-center gap-3">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                        </svg>
+                        Page Engine Pro
+                    </span>
+                </a>
+
+                <!-- NEW: 20 Tools 2026 -->
+                <a 
+                    href="https://raihanstruggle.id/the2026liferesetbundle" 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="link-btn btn-secondary reveal delay-3"
+                >
+                    <span class="flex items-center gap-3">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                            <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+                            <line x1="12" y1="22.08" x2="12" y2="12"/>
+                        </svg>
+                        20 Tools untuk 2026 yang Lebih Baik
+                    </span>
+                    <span class="badge badge-new">NEW</span>
+                </a>
+
+                <!-- Coming Soon: Content Script Engine -->
+                <button 
+                    class="link-btn btn-disabled reveal delay-4"
+                    disabled
+                    aria-disabled="true"
+                >
+                    <span class="flex items-center gap-3">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                            <polyline points="14 2 14 8 20 8"/>
+                            <line x1="16" y1="13" x2="8" y2="13"/>
+                            <line x1="16" y1="17" x2="8" y2="17"/>
+                            <polyline points="10 9 9 9 8 9"/>
+                        </svg>
+                        Content Script Engine
+                        <span class="badge badge-soon">Coming Soon</span>
+                    </span>
+                </button>
+            </nav>
+
+            <!-- Admin Section -->
+            <section class="admin-grid reveal delay-5">
+                <p class="text-center font-bold text-sm mb-1" style="color: var(--text-primary);">
+                    Butuh Bantuan? Hubungi Admin
+                </p>
+                
+                <!-- Admin 1: Support/Troubleshoot -->
+                <a 
+                    href="https://wa.me/6285156321894?text=Halo%20Admin!%20Saya%20butuh%20bantuan%20nih.%0A%0ALagi%20ada%20masalah%20di%3A%0A%5BNama%20Tools%5D%0A%0AMasalahnya%3A%0A%5BJelaskan%20masalahnya%5D%0A%0AScreenshoot%3A%0A%5BLampirkan%20screenshoot%20jika%20ada%5D"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="link-btn"
+                >
+                    <span class="flex items-center gap-3">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                            <line x1="12" y1="17" x2="12.01" y2="17"/>
+                        </svg>
+                        Tanya Kendala & Support
+                    </span>
+                    <span class="badge badge-help">Help</span>
+                </a>
+                <div class="desc-card">
+                    <p class="desc-text">
+                        Ada masalah dengan tools? Klik di atas untuk langsung chat dengan template yang siap pakai
+                    </p>
+                </div>
+
+                <!-- Admin 2: Collaboration -->
+                <a 
+                    href="https://wa.me/6285156321894?text=Halo%20Raihan!%20Saya%20tertarik%20untuk%20kerjasama.%0A%0ANama%3A%0A%5BNama%20Kamu%5D%0A%0AJenis%20Kerjasama%3A%0A%5BAffiliate%2FKolaborasi%2FLainnya%5D%0A%0AProposal%2FMedia%20Kit%3A%0A%5BLink%20jika%20ada%5D"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="link-btn"
+                >
+                    <span class="flex items-center gap-3">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                            <circle cx="9" cy="7" r="4"/>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                        </svg>
+                        Ajak Kerjasama
+                    </span>
+                    <span class="badge badge-collab">Collab</span>
+                </a>
+                <div class="desc-card">
+                    <p class="desc-text">
+                        Mau kerjasama affiliate, kolaborasi, atau partnership? Gas langsung chat di atas!
+                    </p>
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer class="text-center mt-12 pb-6 reveal delay-6">
+                <p class="text-xs font-semibold" style="color: var(--text-muted);">
+                    Made with love by Raihan Struggle
+                </p>
+            </footer>
+        </main>
+    </div>
+
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
+        
+        // Check for saved theme preference or default to light
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        if (savedTheme === 'dark') {
+            html.setAttribute('data-theme', 'dark');
+        }
+
+        themeToggle.addEventListener('click', function() {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        });
+
+        // Initialize reveal elements
+        document.addEventListener('DOMContentLoaded', function() {
+            const reveals = document.querySelectorAll('.reveal');
+            
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -30px 0px'
+            };
+
+            const revealObserver = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, observerOptions);
+
+            reveals.forEach(function(el) {
+                revealObserver.observe(el);
+            });
+
+            // Initial trigger for elements already in view
+            setTimeout(function() {
+                reveals.forEach(function(el) {
+                    const rect = el.getBoundingClientRect();
+                    if (rect.top < window.innerHeight) {
+                        el.classList.add('active');
+                    }
+                });
+            }, 100);
+        });
+
+        // Add ripple effect to buttons
+        document.querySelectorAll('.link-btn:not(.btn-disabled)').forEach(function(button) {
+            button.addEventListener('click', function(e) {
+                const rect = this.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                const ripple = document.createElement('span');
+                ripple.style.cssText = `
+                    position: absolute;
+                    width: 0;
+                    height: 0;
+                    border-radius: 50%;
+                    background: rgba(255, 255, 255, 0.4);
+                    transform: translate(-50%, -50%);
+                    left: ${x}px;
+                    top: ${y}px;
+                    animation: ripple 0.6s ease-out forwards;
+                    pointer-events: none;
+                `;
+
+                this.appendChild(ripple);
+
+                setTimeout(function() {
+                    ripple.remove();
+                }, 600);
+            });
+        });
+
+        // Add ripple keyframes dynamically
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    width: 350px;
+                    height: 350px;
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
